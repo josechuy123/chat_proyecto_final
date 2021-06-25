@@ -9,9 +9,6 @@ var roomName = '';
 const nameBot = "BotChat";
 const port = process.env.PORT || 3000;
 
-var server = app.listen(port, function () {
-	console.log("Servidor en marcha, port.", port);
-});
 
 var io = socket(server);
 
@@ -154,7 +151,7 @@ io.on('connection', function (socket) {
 	});
 
 	socket.on('mjsNuevo', function ({data}) {
-		// id de la sala
+		
 		db.query("INSERT INTO mensajes(`mensaje`, `user_id`, `sala_id`, `fecha`) VALUES (5, 5, 5 , CURDATE())", [data, req.session.userID, req.session.roomID],  
 		(err, result) => {
 			if (!!err)
@@ -235,4 +232,7 @@ io.on('connection', function (socket) {
 			response.end();
 		}
 	});
+});
+var server = app.listen(port, function () {
+	console.log("Servidor en marcha, port.", port);
 });
